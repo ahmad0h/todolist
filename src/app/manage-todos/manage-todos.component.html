@@ -1,0 +1,27 @@
+<div class="todo-list">
+    <div   class="header">
+        <h2 style="margin:5px">To Do List</h2>
+        <input type="text" [(ngModel)]="newTaskText" placeholder="Enter your task" class="text-input">
+        <button (click)="addTask(newTaskText)" class="addBtn">Add Task</button>
+    </div>
+
+    <ul>
+        <li *ngFor="let task of tasks">
+            <div *ngIf="!task.editing" class="task-item">
+                <input type="checkbox" [(ngModel)]="task.done" (change)="onTaskStatusChange(task)">
+                <span [ngClass]="{'done': task.done}">{{ task.text }}</span>
+                <div class="controls">
+                    <button type="button" class="btn edit-btn" (click)="editTask(task)">Edit</button>
+                    <button type="button" class="btn delete-btn" (click)="deleteTask(task)">Delete</button>
+                </div>
+            </div>
+            <div *ngIf="task.editing" class="task-item">
+                <input type="text" [(ngModel)]="editedTaskText" class="text-input">
+                <div class="controls">
+                    <button type="button" class="btn edit-btn" (click)="saveEditedTask(task)">Save</button>
+                    <button type="button" class="btn delete-btn" (click)="cancelEdit(task)">Cancel</button>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
